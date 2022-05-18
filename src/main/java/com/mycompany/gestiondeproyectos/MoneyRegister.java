@@ -59,12 +59,14 @@ public class MoneyRegister extends Person{
         Double totalSell = 0.0;
         for( int product = 0; product < clients.getFirst().getProductSize(); 
             ++product){
-            totalSell += clients.getFirst().getProduct(product).getPrice();
+            Product clientProduct = clients.getFirst().getProduct(product);
+            totalSell += clientProduct.getPrice();
+            calculatetaxes(clientProduct);
         }
         sells.addFirst(totalSell);
         return totalSell;
-        //Se podría hacer que este valor lo guarde el cliente para traerlo al final
     }
+    
     public void calculatetaxes(Product product){
         if(product.getKind()){
             taxes += product.getPrice()*0.25;
@@ -80,17 +82,14 @@ public class MoneyRegister extends Person{
     public Boolean isItEnough(Double clientCash){
         if( calculateTotalSell() > clientCash ){
             return false;
-        }
-        if((clientCash - calculateTotalSell()) > defaultCash){
-            return false;
         }else {
+            defaultCash += clientCash;
             clientPayback = clientCash - calculateTotalSell();
             return true;
         }
     }
     
     public Double getPayback(Double clientCash){
-        defaultCash += clientCash;
         defaultCash -= clientPayback;
         return clientPayback;
     }

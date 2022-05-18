@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class Person {
     //Attributes
     protected String name;
-    //protected ArrayList<Product> products;
     
     //Methods
     public void setName(String newName){

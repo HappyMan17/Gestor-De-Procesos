@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Client extends Person{
     //Attribute
-    protected ArrayList<Product> products;
+    private ArrayList<Product> products;
     /**
      *
      * @param name
