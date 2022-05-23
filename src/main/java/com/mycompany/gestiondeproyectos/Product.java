@@ -10,20 +10,23 @@ package com.mycompany.gestiondeproyectos;
  */
 public class Product {
     //Attributes
+    private String productName;
     private Double price;
     private int amount;
     private Boolean isImported;
     
     //Builder
     public Product(){
+        productName = "";
         price = 0.0;
         amount = 0;
         isImported = false;
     }
-    public Product(int amount, Boolean isImported){
-        price = 0.0;
+    public Product(String productName, Double price, int amount, Boolean isImported){
+        this.price = price;
         this.amount = amount;
         this.isImported = isImported;
+        this.productName = productName;
     }
     //Methods
     public void setPrice(Double newPrice){
@@ -40,5 +43,8 @@ public class Product {
     }
     public Boolean getKind(){
         return isImported;
+    }
+    public String getName(){
+        return productName;
     }
 }

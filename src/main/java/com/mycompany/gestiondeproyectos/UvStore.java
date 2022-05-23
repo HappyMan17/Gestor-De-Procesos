@@ -5,6 +5,7 @@
 package com.mycompany.gestiondeproyectos;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -12,21 +13,26 @@ import java.util.ArrayList;
  */
 public class UvStore {
     //Attributes
-    private ArrayList<Supplier> suppliers = new ArrayList<>();
-    private ArrayList<Product> products = new ArrayList<>();
-    private ArrayList<Client> clients = new ArrayList<>();
-    private ArrayList<MoneyRegister> moneyRegister = new ArrayList<>();
+    private String companyName;
+    private ArrayList<Supplier> suppliers;
+    private ArrayList<Product> products;
+    private ArrayList<Client> clients;
+    private ArrayList<MoneyRegister> moneyRegister;
     
     //Builder
-    public UvStore(ArrayList<Supplier> supplier, ArrayList<Product> products, 
-        ArrayList<Client> clients, ArrayList<MoneyRegister> moneyRegister){
-        this.suppliers = supplier;
-        this.products = products;
-        this.clients = clients;
-        this.moneyRegister = moneyRegister;
+    public UvStore(String companyName){
+        this.companyName = companyName;
+        suppliers = new ArrayList<>();
+        products  = new ArrayList<>();
+        clients  = new ArrayList<>();
+        moneyRegister = new ArrayList<>();
     }
     
     //Methods
+    public String getName(){
+        return companyName;
+    }
+    
     public void setSupplier(Supplier newSupplier){
         suppliers.add(newSupplier);
     }
@@ -38,6 +44,28 @@ public class UvStore {
     }
     public void setMoneyRegister(MoneyRegister newMoneyRegister){
         moneyRegister.add(newMoneyRegister);
+    }
+    public void setProduct(){
+        String name = "";
+        Double price = 0.0;
+        int amount = 0;
+        Boolean isImported;
+        Scanner sc = new Scanner(System.in);
+        //Capurar los datos nombres y apellisdo
+        System.out.print("Product name: ");
+        name = sc.nextLine();
+        System.out.print("Price: ");
+        price = sc.nextDouble();
+        System.out.print("Amount: ");
+        amount = sc.nextInt();
+        System.out.println("Is it imported?");
+        System.out.println("false. No");
+        System.out.println("true. yes");
+        isImported = sc.nextBoolean();
+        //Crear un objeto de la clase empleado
+        Product product = new Product(name, price, amount, isImported);
+        //llamar método agregarEmpleado del objeto empresa
+        products.add(product);
     }
 
     public ArrayList<Supplier> getSuppliers() {
