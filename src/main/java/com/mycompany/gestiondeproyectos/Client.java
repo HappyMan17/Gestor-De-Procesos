@@ -22,17 +22,13 @@ public class Client extends Person{
         products = new ArrayList<>();
     }
     //Methods
-    public void productToBuy(Product product, int productAmount){
+    public void buyProduct(Product product, int productAmount){
         product.setAmount(productAmount);
         products.add(product);
     }
     public int getProductSize(){
         return products.size();
     }
-    public void addProduct(Product product) {
-        products.add(product);
-    }
-
     public ArrayList<Product> getProducts() {
         return products;
     }
