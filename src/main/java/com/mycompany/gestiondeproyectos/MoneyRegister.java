@@ -5,6 +5,7 @@
 package com.mycompany.gestiondeproyectos;
 
 //import java.util.ArrayList;
+//import java.util.Collections;
 import java.util.LinkedList;
 //import java.util.Objects;
 
@@ -15,8 +16,7 @@ import java.util.LinkedList;
 public class MoneyRegister extends Person{
     //Attibute
     private Double defaultCash;
-    private LinkedList<Double> sells;
-    private LinkedList<Client> clients;
+    private LinkedList<Sells> sells;
     private Double taxes;
     private Double clientPayback;
     
@@ -24,67 +24,17 @@ public class MoneyRegister extends Person{
     public MoneyRegister(String name, Double defaultCash){
         this.name = name;
         this.defaultCash = defaultCash;
-        clients = new LinkedList<>();
-        taxes = 0.0;
+        sells = new LinkedList<>();
         clientPayback = 0.0;
     }
     
     //Methods
-    public void setClient( Client client ){
-        clients.addFirst(client);
-    }
-    
-    public Double calculateDiscount(int paymentMethod){
-        Double total = 0.0;
-        switch(paymentMethod){
-            case 1: //Efectivo 20%
-                total = calculateTotalSell()*0.80;
-                return total;
-            case 2: //Cheque 15%
-                total = calculateTotalSell()*0.85;
-                return total;
-            case 3: //Tarjeta débito 17%
-                total = calculateTotalSell()*0.83;
-                return total;
-            case 4: //Tarjeta crédito 10%
-                total = calculateTotalSell()*0.90;
-                return total;
-            case 5: //A crédito 0%
-                total = calculateTotalSell();
-                return total;
-        }
-        return total;
-    }
-    public Double calculateTotalSell(){
-        Double totalSell = 0.0;
-        for( int product = 0; product < clients.getFirst().getProductSize(); 
-            ++product){
-            Product clientProduct = clients.getFirst().getProduct(product);
-            totalSell += clientProduct.getPrice();
-            calculatetaxes(clientProduct);
-        }
-        sells.addFirst(totalSell);
-        return totalSell;
-    }
-    
-    public void calculatetaxes(Product product){
-        if(product.getKind()){
-            taxes += product.getPrice()*0.25;
-        }else {
-            taxes += product.getPrice()*0.19;
-        }
-    }
-    
-    public Double getTaxes(){
-        return taxes;
-    }
-    
     public Boolean isItEnough(Double clientCash){
-        if( calculateTotalSell() > clientCash ){
+        if( sells.getFirst().calculateTotalSell() > clientCash ){
             return false;
         }else {
             defaultCash += clientCash;
-            clientPayback = clientCash - calculateTotalSell();
+            clientPayback = clientCash - sells.getFirst().calculateTotalSell();
             return true;
         }
     }
@@ -92,5 +42,20 @@ public class MoneyRegister extends Person{
     public Double getPayback(Double clientCash){
         defaultCash -= clientPayback;
         return clientPayback;
+    }
+    
+    public String getHigherSellClient(){
+        Double higher = 0.0;
+        Sells sell = sells.get(0); //Jummmmm
+        for( int sellNumber = 1; sellNumber < sells.size(); ++sellNumber ){
+            if( sells.get(sellNumber).getTotalSell() > sells.get(sellNumber-1).getTotalSell()){
+                higher = sells.get(sellNumber).getTotalSell();
+                sell = sells.get(sellNumber);
+            }else {
+                higher = sells.get(sellNumber-1).getTotalSell();
+                sell = sells.get(sellNumber-1);
+            }
+        }
+        return sell.getClientName()+" con "+sell.getTotalSell();
     }
 }
