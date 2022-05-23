@@ -51,7 +51,6 @@ public class UvStore {
         int amount = 0;
         Boolean isImported;
         Scanner sc = new Scanner(System.in);
-        //Capurar los datos nombres y apellisdo
         System.out.print("Product name: ");
         name = sc.nextLine();
         System.out.print("Price: ");
@@ -62,9 +61,7 @@ public class UvStore {
         System.out.println("false. No");
         System.out.println("true. yes");
         isImported = sc.nextBoolean();
-        //Crear un objeto de la clase empleado
         Product product = new Product(name, price, amount, isImported);
-        //llamar método agregarEmpleado del objeto empresa
         products.add(product);
     }
 
