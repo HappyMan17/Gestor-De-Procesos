@@ -61,9 +61,10 @@ public class Controlador {
                 case 1: store.setProduct();
                     System.out.println("Product add");
                     break;
-                case 2: System.out.println("Paso 2");
+                case 2: store.removeProduct();
+                    System.out.println("Paso 2");
                     break;
-                case 3: System.out.println("Paso 3");
+                case 3: store.seeProducts();
                     break;
             }
         

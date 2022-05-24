@@ -14,7 +14,7 @@ import java.util.LinkedList;
  * @author happy
  */
 public class MoneyRegister extends Person{
-    //Attibute
+    //Attibutes
     private Double defaultCash;
     private LinkedList<Sells> sells;
     private Double taxes;

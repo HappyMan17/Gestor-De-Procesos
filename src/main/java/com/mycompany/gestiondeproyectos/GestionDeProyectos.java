@@ -18,7 +18,7 @@ public class GestionDeProyectos{
         Product p1 = new Product("H2OH", 2500.0, 4, false);
         Product p2 = new Product("Risadas Pollo", 2000.0, 6, false);
         Product p3 = new Product("Coca Cola", 2500.0, 4, true);
-        Product p4 = new Product("importado", 5000.0, 3, true);
+        Product p4 = new Product("Pringles", 10000.0, 6, true);
         
         ArrayList<Product> products = new ArrayList<>();
         products.add(p1);
@@ -34,6 +34,8 @@ public class GestionDeProyectos{
         UvStore store = new UvStore("Univalle Store");
         store.setSupplier(s1);
         store.setSupplier(s2);
+        
+        store.buyProducts();
         
         Controlador controlador = new Controlador(store);
         

@@ -23,5 +23,4 @@ public class Supplier {
     public ArrayList<Product> sellproducts(){
         return products;
     }
-    
 }

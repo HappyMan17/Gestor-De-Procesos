@@ -19,13 +19,14 @@ public class UvStore {
     private ArrayList<Client> clients;
     private ArrayList<MoneyRegister> moneyRegister;
     
-    //Builder
+    //Constructor
     public UvStore(String companyName){
         this.companyName = companyName;
         suppliers = new ArrayList<>();
         products  = new ArrayList<>();
         clients  = new ArrayList<>();
         moneyRegister = new ArrayList<>();
+        
     }
     
     //Methods
@@ -64,6 +65,23 @@ public class UvStore {
         Product product = new Product(name, price, amount, isImported);
         products.add(product);
     }
+    
+    public void removeProduct(){
+        System.out.println("Choose the product to remove it: ");
+        seeProducts();
+        int product;
+        Scanner sc = new Scanner(System.in);
+        product = sc.nextInt();
+        //buscar remove en array.
+    }
+    
+    public void seeProducts(){
+        int number = 0;
+        for(Product product : products){
+            System.out.println(number+". "+product.getName());
+            ++number;
+        }
+    }
 
     public ArrayList<Supplier> getSuppliers() {
         return suppliers;
@@ -79,5 +97,9 @@ public class UvStore {
 
     public ArrayList<MoneyRegister> getMoneyRegister() {
         return moneyRegister;
+    }
+    
+    public void buyProducts(){
+        products = suppliers.get(0).sellproducts();
     }
 }
