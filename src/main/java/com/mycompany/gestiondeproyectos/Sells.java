@@ -19,9 +19,9 @@ public class Sells {
     private Double taxes;
     
     //Builder
-    public Sells(ArrayList<Product> products, String clientName, 
+    public Sells(String clientName, 
         String moneyRegisterName){
-        this.products = products;
+        products = new ArrayList<>();
         this.clientName = clientName;
         this.moneyRegisterName = moneyRegisterName;
         totalSell = 0.0;
@@ -34,6 +34,10 @@ public class Sells {
      */
     public String getClientName(){
         return clientName;
+    }
+    
+    public void addProduct(Product product){
+        products.add(product);
     }
     
     /**

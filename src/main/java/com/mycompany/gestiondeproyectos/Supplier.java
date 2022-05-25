@@ -23,8 +23,17 @@ public class Supplier {
     /**
      * Retorna El array de los productos que tiene el proveedor.
     */
-    public ArrayList<Product> sellproducts(){
-        return products;
+    //public ArrayList<Product> sellproducts(){
+    public Product sellproducts(int number){
+        return products.get(number);
+    }
+    
+    public void seeProducts(){
+        int number = 0;
+        for(Product product : products){
+            System.out.println(number+". "+product.getName());
+            ++number;
+        }
     }
     
     public int getNit(){
@@ -49,5 +58,8 @@ public class Supplier {
         isImported = sc.nextBoolean();
         Product product = new Product(name, price, amount, isImported);
         products.add(product);
+    }
+    public void removeProduct(int number){
+        products.remove(number);
     }
 }

@@ -15,7 +15,7 @@ public class Controlador {
     private UvStore store;
     
     //Builder
-    Controlador(UvStore store){
+    public Controlador(UvStore store){
         this.store = store;
     }
     
@@ -30,8 +30,7 @@ public class Controlador {
         System.out.println("1. Product management.");
         System.out.println("2. Supplier management.");
         System.out.println("3. Client management.");
-        System.out.println("4. Money register admin.");
-        System.out.println("5. leave.");
+        System.out.println("4. leave.");
         opcion = sc.nextByte();
         switch(opcion){
             case 1: productMenu();
@@ -40,11 +39,9 @@ public class Controlador {
                 break;
             case 3: clientMenu();
                 break;
-            case 4: moneyRegisterMenu();
-                break;
         }
         
-        }while (opcion != 5);
+        }while (opcion != 4);
         System.out.println("Gracias!!!!");
     }
     
@@ -98,31 +95,7 @@ public class Controlador {
         
         }while (opcion != 4);
     }
-    public void moneyRegisterMenu(){
-        byte opcion = 0;
-        Scanner sc = new Scanner(System.in);
-        do{ 
-            
-            System.out.println("Company management of "+store.getName());
-            System.out.println("What do you want to do?");
-            System.out.println("1. Add a money register.");
-            System.out.println("2. Remove money register.");
-            System.out.println("3. See money registers.");
-            System.out.println("4. leave.");
-            opcion = sc.nextByte();
-            switch(opcion){
-                case 1: store.setMoneyRegister();
-                    System.out.println("Money register add");
-                    break;
-                case 2: store.removeMoneyRegister();
-                    System.out.println("money register removed");
-                    break;
-                case 3: store.seeMoneyRegister();
-                    break;
-            }
-        
-        }while (opcion != 4);
-    }
+    
     public void supplierMenu(){
         byte opcion = 0;
         Scanner sc = new Scanner(System.in);
@@ -137,10 +110,10 @@ public class Controlador {
             opcion = sc.nextByte();
             switch(opcion){
                 case 1: store.createSupplier();
-                    System.out.println("Product add");
+                    System.out.println("Supplier created");
                     break;
                 case 2: store.removeProduct();
-                    System.out.println("Paso 2");
+                    System.out.println("Supplier removed");
                     break;
                 case 3: store.seeSupplier();
                     break;
@@ -148,4 +121,24 @@ public class Controlador {
         
         }while (opcion != 4);
     }
+    
+    public void letsBuy(){
+        store.setClient();
+        String name = store.clients.get(0).getName();
+        store.moneyRegister.addSell(name);
+        byte opcion = 0;
+        Boolean keepGoing = true;
+        Scanner sc = new Scanner(System.in);
+        do{
+            System.out.println("Choose a product to buy: ");
+            store.seeProducts();
+            opcion = sc.nextByte();
+            store.moneyRegister.addProductToSell(store.sellProduct(opcion));
+            System.out.println("Do you want to buy another product?: (true/false)");
+            keepGoing = sc.nextBoolean();
+        }while(keepGoing);
+        //Seleccionar metodo de pago / opcion = metodo de pago
+        System.out.println("Total: "+store.moneyRegister.sells.get(0).calculateDiscount(opcion));
+    }
+    
 }

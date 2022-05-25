@@ -16,7 +16,7 @@ import java.util.LinkedList;
 public class MoneyRegister extends Person{
     //Attibutes
     private Double defaultCash;
-    private LinkedList<Sells> sells;
+    protected LinkedList<Sells> sells;
     private Double taxes;
     private Double clientPayback;
     
@@ -29,6 +29,18 @@ public class MoneyRegister extends Person{
     }
     
     //Methods
+    
+    public void addSell(String clientName){
+        System.err.println("Llegamos");
+        Sells sell = new Sells(clientName, name);
+        System.err.println("Seguimos"); ///----------
+        sells.addFirst(sell);
+    }
+    
+    public void addProductToSell(Product product){
+        sells.getFirst().addProduct(product);
+    }
+    
     /**
      * Retorna true si el dinero en caja alcanza para dar devuelta y false 
      * si no es así.

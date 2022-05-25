@@ -5,6 +5,8 @@
 package com.mycompany.gestiondeproyectos;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -16,17 +18,15 @@ public class UvStore {
     private String companyName;
     private ArrayList<Supplier> suppliers;
     private ArrayList<Product> products;
-    private ArrayList<Client> clients;
-    private ArrayList<MoneyRegister> moneyRegister;
+    protected LinkedList<Client> clients;
+    protected MoneyRegister moneyRegister;
     
     //Constructor
     public UvStore(String companyName){
         this.companyName = companyName;
         suppliers = new ArrayList<>();
         products  = new ArrayList<>();
-        clients  = new ArrayList<>();
-        moneyRegister = new ArrayList<>();
-        
+        clients  = new LinkedList<>();
     }
     
     //Methods
@@ -74,7 +74,8 @@ public class UvStore {
         System.out.print("Client name: ");
         name = sc.nextLine();
         Client client = new Client(name);
-        clients.add(client);
+        clients.addFirst(client);
+        System.err.println("Añadido");
     }
     
     /**
@@ -100,42 +101,15 @@ public class UvStore {
         }
     }
     
-    /**
-     * Crea y añade un cajero
-     */
-    public void setMoneyRegister(){
-        String name = "";
-        Double defaultCash = 0.0;
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Money register name: ");
-        name = sc.nextLine();
-        System.out.print("Money register default cash: ");
-        defaultCash = sc.nextDouble();
-        MoneyRegister moneyRegisterNew = new MoneyRegister(name, defaultCash);
-        moneyRegister.add(moneyRegisterNew);
+    public Client getClient(){
+        return clients.getFirst();
     }
     
     /**
-     * Elimina a uno de los cajeros.
+     * Asigna un cajero
      */
-    public void removeMoneyRegister(){
-        System.out.println("Choose the money register to remove it: ");
-        seeMoneyRegister();
-        int theMoneyRegister;
-        Scanner sc = new Scanner(System.in);
-        theMoneyRegister = sc.nextInt();
-        moneyRegister.remove(theMoneyRegister);
-    }
-    
-    /**
-     * Retorna una lista con los cajeros que tiene la compañía.
-     */
-    public void seeMoneyRegister(){
-        int number = 0;
-        for(MoneyRegister theMoneyRegister : moneyRegister){
-            System.out.println(number+". "+theMoneyRegister.getName());
-            ++number;
-        }
+    public void setMoneyRegister(MoneyRegister m1){
+        moneyRegister = m1;
     }
     
     /**
@@ -183,7 +157,19 @@ public class UvStore {
             ++number;
         }
     }
-
+    
+    
+    public Product sellProduct(int number){
+        if(products.get(number).getAmount()>=1){
+            products.get(number).setAmount(products.get(number).getAmount()-1);
+            return products.get(number);
+        }else{
+            System.out.println("Out of Stock");
+            products.remove(number);
+        }
+        return products.get(number);
+    }
+    /*
     public ArrayList<Supplier> getSuppliers() {
         return suppliers;
     }
@@ -199,8 +185,29 @@ public class UvStore {
     public ArrayList<MoneyRegister> getMoneyRegister() {
         return moneyRegister;
     }
-    
+    */
     public void buyProducts(){
-        products = suppliers.get(0).sellproducts();
+        //int opcion = 0;
+        int number = 0;
+        int productNumber = 0;
+        Boolean keepGoing = true;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choose a supplier: ");
+        
+        for(Supplier supplier : suppliers){
+            System.out.println(number+". "+supplier.getNit());
+            ++number;
+        }
+        number = sc.nextInt();
+        do{
+            System.out.println("Choose a product: ");
+            suppliers.get(number).seeProducts();
+            productNumber = sc.nextInt();
+            products.add(suppliers.get(number).sellproducts(productNumber));
+            System.out.println("Do you wanna buy another: (true/false) ");
+            keepGoing = sc.nextBoolean();
+            suppliers.get(number).removeProduct(productNumber);
+        }while(keepGoing);
     }
+    
 }

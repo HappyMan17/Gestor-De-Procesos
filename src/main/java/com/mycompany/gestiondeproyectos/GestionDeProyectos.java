@@ -15,28 +15,36 @@ import java.util.Scanner;
 public class GestionDeProyectos{
 
     public static void main(String[] args) {
+        //creación de los productos
         Product p1 = new Product("H2OH", 2500.0, 4, false);
         Product p2 = new Product("Risadas Pollo", 2000.0, 6, false);
         Product p3 = new Product("Coca Cola", 2500.0, 4, true);
         Product p4 = new Product("Pringles", 10000.0, 6, true);
         
+        //Productos del primer proveedor
         ArrayList<Product> products = new ArrayList<>();
         products.add(p1);
         products.add(p2);
         products.add(p3);
         products.add(p4);
         
+        //Productos del segundo proveedor
         ArrayList<Product> products2 = new ArrayList<>();
         
+        //Creación de los proveedores
         Supplier s1 = new Supplier(1, products);
         Supplier s2 = new Supplier(2, products2);
+
+        //Creación del cajero
+        MoneyRegister moneyRegister = new MoneyRegister("Camilo", 5000.0);        
         
+        //Creación de la tienda
         UvStore store = new UvStore("Univalle Store");
         store.setSupplier(s1);
         store.setSupplier(s2);
+        store.setMoneyRegister(moneyRegister);
         
         store.buyProducts();
-        
         Controlador controlador = new Controlador(store);
         
         byte opcion = 0;
@@ -48,10 +56,7 @@ public class GestionDeProyectos{
         if(opcion == 2){
             controlador.start();
         }else{
-            System.out.println("Menú de cliente");
+            controlador.letsBuy();
         }
-        
-        
-        
     }
 }
