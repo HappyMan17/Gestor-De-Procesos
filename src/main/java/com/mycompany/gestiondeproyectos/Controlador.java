@@ -14,36 +14,43 @@ public class Controlador {
     //Attributes
     private UvStore store;
     
-    //Builder
+    //Constructor
     public Controlador(UvStore store){
         this.store = store;
     }
     
     //Methods
+    /**
+     * Imprime las opciones principales del programa y permite acceder a otros
+     * menus.
+     */
     public void start(){
         byte opcion = 0;
         Scanner sc = new Scanner(System.in);
         do{ 
             
-        System.out.println("Company management of "+store.getName());
-        System.out.println("What do you want to do?");
-        System.out.println("1. Product management.");
-        System.out.println("2. Supplier management.");
-        System.out.println("3. Client management.");
-        System.out.println("4. leave.");
-        opcion = sc.nextByte();
-        switch(opcion){
-            case 1: productMenu();
-                break;
-            case 2: supplierMenu();
-                break;
-            case 3: clientMenu();
-                break;
-        }
+            System.out.println("Company management of "+store.getName());
+            System.out.println("What do you want to do?");
+            System.out.println("1. Product management.");
+            System.out.println("2. Supplier management.");
+            System.out.println("3. Client management.");
+            System.out.println("4. leave.");
+            opcion = sc.nextByte();
+            switch(opcion){
+                case 1: productMenu();
+                    break;
+                case 2: supplierMenu();
+                    break;
+                case 3: clientMenu();
+                    break;
+            }
         
         }while (opcion != 4);
     }
     
+    /**
+     * Imprime el menú con las acciones relacionadas con los productos
+     */
     public void productMenu(){
         byte opcion = 0;
         Scanner sc = new Scanner(System.in);
@@ -54,7 +61,8 @@ public class Controlador {
             System.out.println("1. Add a product.");
             System.out.println("2. Remove a product.");
             System.out.println("3. See products.");
-            System.out.println("4. leave.");
+            System.out.println("4. Buy product.");
+            System.out.println("5. leave.");
             opcion = sc.nextByte();
             switch(opcion){
                 case 1: store.setProduct();
@@ -65,10 +73,16 @@ public class Controlador {
                     break;
                 case 3: store.seeProducts();
                     break;
+                case 4: store.buyProducts();
+                break;
             }
         
-        }while (opcion != 4);
+        }while (opcion != 5);
     }
+    
+    /**
+     * Imprime el menú con las acciones relacionadas con los clientes
+     */
     public void clientMenu(){
         byte opcion = 0;
         Scanner sc = new Scanner(System.in);
@@ -95,6 +109,9 @@ public class Controlador {
         }while (opcion != 4);
     }
     
+    /**
+     * Imprime el menú con las acciones relacionadas con los proveedores.
+     */
     public void supplierMenu(){
         byte opcion = 0;
         Scanner sc = new Scanner(System.in);
@@ -121,6 +138,9 @@ public class Controlador {
         }while (opcion != 4);
     }
     
+    /**
+     * Imprime el menú con las acciones relacionadas con los productos
+     */
     public void letsBuy(){
         store.setClient();
         String name = store.clients.get(0).getName();
@@ -132,6 +152,7 @@ public class Controlador {
             System.out.println("Choose a product to buy: ");
             store.seeProducts();
             opcion = sc.nextByte();
+            //opcion vs products.size()
             store.moneyRegister.addProductToSell(store.sellProduct(opcion));
             System.out.println("Do you want to buy another product?: (true/false)");
             keepGoing = sc.nextBoolean();
@@ -140,6 +161,10 @@ public class Controlador {
         paymentMethodMenu();
     }
     
+    /**
+     * Permite escoger el método de pago e imprime total a pagar, impuestos,
+     * descuentos y total neto.
+     */
     public void paymentMethodMenu(){
         int number;
         Scanner sc = new Scanner(System.in);
@@ -155,7 +180,7 @@ public class Controlador {
             "Sale value: "
             +store.moneyRegister.sells.get(0).getSellAfterDiscount()
             +"\nTaxes value: "
-                +store.moneyRegister.sells.get(0).getTaxes()
+            +store.moneyRegister.sells.get(0).getTaxes()
             +"\nDiscount: "
             +store.moneyRegister.sells.get(0).getDiscount()
             +"\nNet sale value: "
@@ -166,6 +191,7 @@ public class Controlador {
                 System.out.println("How much do you have: ");
                 cash = sc.nextDouble();
             }while(!store.moneyRegister.isItEnough(cash));
+            //Revisar cuando sobre pasa lo que hay en caja
         }
         System.out.println(
                 "----------------------------------------\n"+
@@ -174,6 +200,9 @@ public class Controlador {
         System.out.println("Have a nice day!");
     }
     
+    /**
+     * Imprime las ventas realizadas por la tienda.
+     */
     public void purchasesAndSells(){
         String clientSells = "\nSells:\n";
         String supplierPurchases = "\nPurchases:\n";
@@ -188,5 +217,21 @@ public class Controlador {
                 "\n-----------------------------";
         }
         System.out.println(clientSells);
+    }
+    
+    public void endShift(){
+        /*
+        Total de recaudo por cada forma de pago.
+        Nombre de los clientes que efectuaron la mejor compra y el monto de ésta.
+        */
+        System.out.println("Company management of "+store.getName());
+        System.out.println("Total sold: "+store.moneyRegister.getTotalSell());
+        store.moneyRegister.totalForPayMethod();
+        System.out.println("Higher sell: "
+            +store.moneyRegister.getHigherSellClient());
+        System.out.println("Total taxes: "+store.moneyRegister.getTotalTaxes());
+        System.out.println("Total cash on store: "
+            +store.moneyRegister.getDefaultCash());
+        
     }
 }

@@ -17,10 +17,15 @@ public class Sells {
     private String moneyRegisterName;
     private Double totalSell;
     private Double taxes;
-    Double afterDiscount;
-    String discount;
-    
-    //Builder
+    private Double afterDiscount;
+    private String discount;
+    private Double cashCollection;
+    private Double checkCollection;
+    private Double debitCardCollection;
+    private Double creditCardCollection;
+    private Double CreditCollection;
+            
+    //Constructor
     public Sells(String clientName, 
         String moneyRegisterName){
         products = new ArrayList<>();
@@ -61,18 +66,23 @@ public class Sells {
             case 1: //Efectivo 20%
                 totalSell = calculateTotalSell()*0.80;
                 discount = "20%";
+                cashCollection = calculateTotalSell()*0.80;; 
             case 2: //Cheque 15%
                 totalSell = calculateTotalSell()*0.85;
                 discount = "15%";
+                checkCollection = calculateTotalSell()*0.85;
             case 3: //Tarjeta débito 17%
                 totalSell = calculateTotalSell()*0.83;
                 discount = "17%";
+                debitCardCollection = calculateTotalSell()*0.83;
             case 4: //Tarjeta crédito 10%
                 totalSell = calculateTotalSell()*0.90;
                 discount = "10%";
+                creditCardCollection = calculateTotalSell()*0.90;
             case 5: //A crédito 0%
                 totalSell = calculateTotalSell();
                 discount = "0%";
+                CreditCollection = calculateTotalSell();
         }
     }
     
@@ -124,5 +134,25 @@ public class Sells {
      */
     public Double getTaxes(){
         return taxes;
+    }
+
+    public Double getCashCollection() {
+        return cashCollection;
+    }
+
+    public Double getCheckCollection() {
+        return checkCollection;
+    }
+
+    public Double getDebitCardCollection() {
+        return debitCardCollection;
+    }
+
+    public Double getCreditCardCollection() {
+        return creditCardCollection;
+    }
+
+    public Double getCreditCollection() {
+        return CreditCollection;
     }
 }

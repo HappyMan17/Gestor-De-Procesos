@@ -44,11 +44,9 @@ public class GestionDeProyectos{
         store.setSupplier(s2);
         store.setMoneyRegister(moneyRegister);
         
-        //Bucle para comprar a otro p.
         store.buyProducts();
         Controlador controlador = new Controlador(store);
         
-        //Bucle con exit.
         byte opcion = 0;
         Scanner sc = new Scanner(System.in);
         System.out.println("Identify yourself");
@@ -56,7 +54,7 @@ public class GestionDeProyectos{
             System.out.println("1. Client.");
             System.out.println("2. Admin.");
             System.out.println("3. record purchases and sales.");
-            System.out.println("4. endShift.");
+            System.out.println("4. endShift."); 
             System.out.println("5. Exit.");
             opcion = sc.nextByte();
             switch(opcion){

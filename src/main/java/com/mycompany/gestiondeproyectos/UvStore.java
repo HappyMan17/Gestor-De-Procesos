@@ -174,7 +174,6 @@ public class UvStore {
     }
     
     
-    
     public void buyProducts(){
         //int opcion = 0;
         int number = 0;

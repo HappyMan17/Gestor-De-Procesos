@@ -67,15 +67,6 @@ public class MoneyRegister extends Person{
     }
     
     /**
-     * Retorna el total en devuelta.
-     * @return 
-     */
-    public Double getPayback(){
-        defaultCash -= clientPayback;
-        return clientPayback;
-    }
-    
-    /**
      * Retorna el cliente con mayor compra y el total de la misma.
      */
     public String getHigherSellClient(){
@@ -91,5 +82,61 @@ public class MoneyRegister extends Person{
             }
         }
         return sell.getClientName()+" con "+sell.getTotalSell();
+    }
+    
+    /**
+     * Retorna el total en devuelta.
+     * @return 
+     */
+    public Double getPayback(){
+        defaultCash -= clientPayback;
+        return clientPayback;
+    }
+    
+    /**
+     * Retorna el valor de las ventas realizadas hasta el cierre.
+     */
+    public Double getTotalSell(){
+        Double totalSell = 0.0;
+        for(Sells sell : sells){
+            totalSell += sell.getTotalSell();
+        }
+        return totalSell;
+    }
+    
+    /**
+     * Retorna el valor de lo recaudado en IVA hasta el cierre.
+     */
+    public Double getTotalTaxes(){
+        Double totalTaxes = 0.0;
+        for(Sells sell : sells){
+            totalTaxes += sell.getTaxes();
+        }
+        return totalTaxes;
+    }
+    
+    /**
+     * Retorna el dinero que hay en caja.
+     */
+    public Double getDefaultCash(){
+        return defaultCash;
+    }
+    
+    public void totalForPayMethod(){
+        Double cash = 0.0;
+        Double check = 0.0;
+        Double debitCard = 0.0;
+        Double creditCard = 0.0;
+        Double credit = 0.0;
+        for(Sells sell : sells){
+            cash = sell.getCashCollection();
+            check = sell.getCheckCollection();
+            debitCard = sell.getDebitCardCollection();
+            creditCard = sell.getCreditCollection();
+            credit = sell.getCreditCollection();
+        }
+        System.out.println("Cash: "+cash+"\nCheck: "+check+"\nDebit card: "
+            +debitCard+"\nCredit Card: "+creditCard+"\nCredit: "
+            +credit+"\n");
     }
 }
