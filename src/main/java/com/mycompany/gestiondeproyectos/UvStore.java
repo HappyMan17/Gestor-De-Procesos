@@ -30,22 +30,117 @@ public class UvStore {
     }
     
     //Methods
+    /**
+     * Retorna el nombre o razón social de la compañia
+     */
     public String getName(){
         return companyName;
     }
     
+    /**
+     * Añade un proveedor a la compañía
+     */
     public void setSupplier(Supplier newSupplier){
         suppliers.add(newSupplier);
     }
-    public void setClients(Product newProduct){
-        products.add(newProduct);
+    
+    /**
+     * Crea un proveedor en para la compañia
+     */
+    public void createSupplier(){
+        int nit = 0;
+        ArrayList<Product> products = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Supplier nit: ");
+        nit = sc.nextInt();
+        Supplier supplierNew = new Supplier(nit,products);
+        supplierNew.createProduct();
     }
-    public void setClients(Client newClient){
-        clients.add(newClient);
+    
+    public void seeSupplier(){
+        int number = 0;
+        for(Supplier supplier : suppliers){
+            System.out.println(number+". "+supplier.getNit());
+            ++number;
+        }
     }
-    public void setMoneyRegister(MoneyRegister newMoneyRegister){
-        moneyRegister.add(newMoneyRegister);
+    
+    /**
+     * Crea y añade un cliente
+     */    
+    public void setClient(){
+        String name = "";
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Client name: ");
+        name = sc.nextLine();
+        Client client = new Client(name);
+        clients.add(client);
     }
+    
+    /**
+     * Elimina uno de los clientes.
+     */
+    public void removeClient(){
+        System.out.println("Choose the client to remove it: ");
+        seeClients();
+        int client;
+        Scanner sc = new Scanner(System.in);
+        client = sc.nextInt();
+        clients.remove(client); //Probar
+    }
+    
+    /**
+     * Retorna un listado con los clientes.
+     */
+    public void seeClients(){
+        int number = 0;
+        for(Client client : clients){
+            System.out.println(number+". "+client.getName());
+            ++number;
+        }
+    }
+    
+    /**
+     * Crea y añade un cajero
+     */
+    public void setMoneyRegister(){
+        String name = "";
+        Double defaultCash = 0.0;
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Money register name: ");
+        name = sc.nextLine();
+        System.out.print("Money register default cash: ");
+        defaultCash = sc.nextDouble();
+        MoneyRegister moneyRegisterNew = new MoneyRegister(name, defaultCash);
+        moneyRegister.add(moneyRegisterNew);
+    }
+    
+    /**
+     * Elimina a uno de los cajeros.
+     */
+    public void removeMoneyRegister(){
+        System.out.println("Choose the money register to remove it: ");
+        seeMoneyRegister();
+        int theMoneyRegister;
+        Scanner sc = new Scanner(System.in);
+        theMoneyRegister = sc.nextInt();
+        moneyRegister.remove(theMoneyRegister);
+    }
+    
+    /**
+     * Retorna una lista con los cajeros que tiene la compañía.
+     */
+    public void seeMoneyRegister(){
+        int number = 0;
+        for(MoneyRegister theMoneyRegister : moneyRegister){
+            System.out.println(number+". "+theMoneyRegister.getName());
+            ++number;
+        }
+    }
+    
+    /**
+     * Añade un producto a la tienda.
+     */
     public void setProduct(){
         String name = "";
         Double price = 0.0;
@@ -66,19 +161,25 @@ public class UvStore {
         products.add(product);
     }
     
+    /**
+     * Elimina un producto de la tienda
+     */
     public void removeProduct(){
         System.out.println("Choose the product to remove it: ");
         seeProducts();
         int product;
         Scanner sc = new Scanner(System.in);
         product = sc.nextInt();
-        //buscar remove en array.
+        products.remove(product);
     }
     
+    /**
+     * Retorna un listado con los productos en la tienda.
+     */
     public void seeProducts(){
         int number = 0;
         for(Product product : products){
-            System.out.println(number+". "+product.getName());
+            System.out.println("\n"+number+". "+product.getName());
             ++number;
         }
     }

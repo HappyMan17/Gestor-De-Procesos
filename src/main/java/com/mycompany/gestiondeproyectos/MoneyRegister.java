@@ -29,6 +29,11 @@ public class MoneyRegister extends Person{
     }
     
     //Methods
+    /**
+     * Retorna true si el dinero en caja alcanza para dar devuelta y false 
+     * si no es así.
+     * @param clientCash Double
+     */
     public Boolean isItEnough(Double clientCash){
         if( sells.getFirst().calculateTotalSell() > clientCash ){
             return false;
@@ -39,11 +44,18 @@ public class MoneyRegister extends Person{
         }
     }
     
+    /**
+     * Retorna el total en devuelta.
+     * @param clientCash Double
+     */
     public Double getPayback(Double clientCash){
         defaultCash -= clientPayback;
         return clientPayback;
     }
     
+    /**
+     * Retorna el cliente con mayor compra y el total de la misma.
+     */
     public String getHigherSellClient(){
         Double higher = 0.0;
         Sells sell = sells.get(0); //Jummmmm

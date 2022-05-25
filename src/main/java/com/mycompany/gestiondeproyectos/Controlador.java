@@ -37,13 +37,10 @@ public class Controlador {
             case 1: productMenu();
                 break;
             case 2: supplierMenu();
-                System.out.println("Paso 2");
                 break;
             case 3: clientMenu();
-                System.out.println("Paso 3");
                 break;
             case 4: moneyRegisterMenu();
-                System.out.println("Paso 3");
                 break;
         }
         
@@ -68,7 +65,7 @@ public class Controlador {
                     System.out.println("Product add");
                     break;
                 case 2: store.removeProduct();
-                    System.out.println("Paso 2");
+                    System.out.println("Product removed");
                     break;
                 case 3: store.seeProducts();
                     break;
@@ -83,19 +80,19 @@ public class Controlador {
             
             System.out.println("Company management of "+store.getName());
             System.out.println("What do you want to do?");
-            System.out.println("1. Add a product.");
-            System.out.println("2. Remove a product.");
-            System.out.println("3. See products.");
+            System.out.println("1. Add client.");
+            System.out.println("2. Remove client.");
+            System.out.println("3. See client.");
             System.out.println("4. leave.");
             opcion = sc.nextByte();
             switch(opcion){
-                case 1: store.setProduct();
-                    System.out.println("Product add");
+                case 1: store.setClient();
+                    System.out.println("Client add");
                     break;
-                case 2: store.removeProduct();
-                    System.out.println("Paso 2");
+                case 2: store.removeClient();
+                    System.out.println("Client removed");
                     break;
-                case 3: store.seeProducts();
+                case 3: store.seeClients();
                     break;
             }
         
@@ -108,19 +105,19 @@ public class Controlador {
             
             System.out.println("Company management of "+store.getName());
             System.out.println("What do you want to do?");
-            System.out.println("1. Add a product.");
-            System.out.println("2. Remove a product.");
-            System.out.println("3. See products.");
+            System.out.println("1. Add a money register.");
+            System.out.println("2. Remove money register.");
+            System.out.println("3. See money registers.");
             System.out.println("4. leave.");
             opcion = sc.nextByte();
             switch(opcion){
-                case 1: store.setProduct();
-                    System.out.println("Product add");
+                case 1: store.setMoneyRegister();
+                    System.out.println("Money register add");
                     break;
-                case 2: store.removeProduct();
-                    System.out.println("Paso 2");
+                case 2: store.removeMoneyRegister();
+                    System.out.println("money register removed");
                     break;
-                case 3: store.seeProducts();
+                case 3: store.seeMoneyRegister();
                     break;
             }
         
@@ -133,19 +130,19 @@ public class Controlador {
             
             System.out.println("Company management of "+store.getName());
             System.out.println("What do you want to do?");
-            System.out.println("1. Add a product.");
-            System.out.println("2. Remove a product.");
-            System.out.println("3. See products.");
+            System.out.println("1. Create supplier.");
+            System.out.println("2. Remove supplier.");
+            System.out.println("3. See suppliers.");
             System.out.println("4. leave.");
             opcion = sc.nextByte();
             switch(opcion){
-                case 1: store.setProduct();
+                case 1: store.createSupplier();
                     System.out.println("Product add");
                     break;
                 case 2: store.removeProduct();
                     System.out.println("Paso 2");
                     break;
-                case 3: store.seeProducts();
+                case 3: store.seeSupplier();
                     break;
             }
         

@@ -29,7 +29,7 @@ public class GestionDeProyectos{
         ArrayList<Product> products2 = new ArrayList<>();
         
         Supplier s1 = new Supplier(1, products);
-        Supplier s2 = new Supplier(1, products2);
+        Supplier s2 = new Supplier(2, products2);
         
         UvStore store = new UvStore("Univalle Store");
         store.setSupplier(s1);

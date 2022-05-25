@@ -5,15 +5,11 @@
 package com.mycompany.gestiondeproyectos;
 
 /**
- *
+ *Si,
  * @author happy
  */
 public class Client extends Person{
-    //Attribute
-    /**
-     *
-     * @param name
-     */
+    //Constructor
     public Client(String name){
         this.name = name;
     }

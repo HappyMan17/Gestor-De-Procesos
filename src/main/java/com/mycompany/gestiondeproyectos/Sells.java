@@ -29,14 +29,24 @@ public class Sells {
     }
     
     //Methods
+    /**
+     * Retorna el nombre del cliente que realizó la compra.
+     */
     public String getClientName(){
         return clientName;
     }
     
+    /**
+     * Retorna el nombre del cajero que realizó la venta.
+     */
     public String getMoneyRegisterName(){
         return moneyRegisterName;
     }
     
+    /**
+     * Calcula el monto total a pagar por la compra de los productos con su 
+     * descuento.
+     */
     public Double calculateDiscount(int paymentMethod){
         switch(paymentMethod){
             case 1: //Efectivo 20%
@@ -58,6 +68,10 @@ public class Sells {
         return totalSell;
     }
     
+    /**
+     * Calcula el total de la venta antes del descuento. Sumatoria de los 
+     * precios de los productos a comprar.
+     */
     public Double calculateTotalSell(){
         Double afterDiscount = 0.0;
         for( Product product : products ){
@@ -68,10 +82,17 @@ public class Sells {
         return afterDiscount;
     }
     
+    /**
+     * Retorna el total de la venta antes de impuesto.
+     */
     public Double getTotalSell(){
         return totalSell;
     }
     
+    /**
+     * Calcula el IVA por cada producto comprado y las va acumulando 
+     * en el atributo "taxes".
+     */
     public void calculatetaxes(Product product){
         if(product.getKind()){
             taxes += product.getPrice()*0.25;
@@ -80,6 +101,9 @@ public class Sells {
         }
     }
     
+    /**
+     * Retorna el acumulado en IVA hasta el momento.
+     */
     public Double getTaxes(){
         return taxes;
     }

@@ -15,10 +15,17 @@ public class Person {
     protected String name;
     
     //Methods
+    /**
+     * Asigna el nombre de la persona.
+     * @param newName
+     */
     public void setName(String newName){
         name = newName;
     }
     
+    /**
+     * Retorna el nombre de la persona.
+     */
     public String getName(){
         return name;
     }
