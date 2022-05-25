@@ -192,11 +192,11 @@ public class Controlador {
                 cash = sc.nextDouble();
             }while(!store.moneyRegister.isItEnough(cash));
             //Revisar cuando sobre pasa lo que hay en caja
-        }
-        System.out.println(
+            System.out.println(
                 "----------------------------------------\n"+
                 "Payback: "+store.moneyRegister.getPayback()
                 +"\n----------------------------------------");
+        }
         System.out.println("Have a nice day!");
     }
     

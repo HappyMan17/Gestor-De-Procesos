@@ -64,6 +64,8 @@ public class GestionDeProyectos{
                     break;
                 case 3: controlador.purchasesAndSells();
                     break;
+                case 4: controlador.endShift();
+                    break;
             }
         }while(opcion != 5);
     }
