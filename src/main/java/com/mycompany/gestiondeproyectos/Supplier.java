@@ -13,10 +13,12 @@ import java.util.Scanner;
  */
 public class Supplier {
     private int nit;
+    private String name;
     private ArrayList<Product> products = new ArrayList<>();
     
     //Constructor
-    public Supplier( int nit, ArrayList<Product> products ){
+    public Supplier( String name, int nit, ArrayList<Product> products ){
+        this.name = name;
         this.nit = nit;
         this.products = products;
     }
@@ -38,6 +40,10 @@ public class Supplier {
     
     public int getNit(){
         return nit;
+    }
+    
+    public String getName(){
+        return name;
     }
     
     public void createProduct(){

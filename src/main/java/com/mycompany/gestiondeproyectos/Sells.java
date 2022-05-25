@@ -17,6 +17,8 @@ public class Sells {
     private String moneyRegisterName;
     private Double totalSell;
     private Double taxes;
+    Double afterDiscount;
+    String discount;
     
     //Builder
     public Sells(String clientName, 
@@ -26,6 +28,7 @@ public class Sells {
         this.moneyRegisterName = moneyRegisterName;
         totalSell = 0.0;
         taxes = 0.0;
+        afterDiscount = 0.0;
     }
     
     //Methods
@@ -50,26 +53,27 @@ public class Sells {
     /**
      * Calcula el monto total a pagar por la compra de los productos con su 
      * descuento.
+     * @param paymentMethod
+     * @return 
      */
-    public Double calculateDiscount(int paymentMethod){
+    public void calculateDiscount(int paymentMethod){
         switch(paymentMethod){
             case 1: //Efectivo 20%
                 totalSell = calculateTotalSell()*0.80;
-                return totalSell;
+                discount = "20%";
             case 2: //Cheque 15%
                 totalSell = calculateTotalSell()*0.85;
-                return totalSell;
+                discount = "15%";
             case 3: //Tarjeta débito 17%
                 totalSell = calculateTotalSell()*0.83;
-                return totalSell;
+                discount = "17%";
             case 4: //Tarjeta crédito 10%
                 totalSell = calculateTotalSell()*0.90;
-                return totalSell;
+                discount = "10%";
             case 5: //A crédito 0%
                 totalSell = calculateTotalSell();
-                return totalSell;
+                discount = "0%";
         }
-        return totalSell;
     }
     
     /**
@@ -77,9 +81,9 @@ public class Sells {
      * precios de los productos a comprar.
      */
     public Double calculateTotalSell(){
-        Double afterDiscount = 0.0;
         for( Product product : products ){
             afterDiscount += product.getPrice();
+            
             calculatetaxes(product);
             
         }
@@ -87,15 +91,9 @@ public class Sells {
     }
     
     /**
-     * Retorna el total de la venta antes de impuesto.
-     */
-    public Double getTotalSell(){
-        return totalSell;
-    }
-    
-    /**
      * Calcula el IVA por cada producto comprado y las va acumulando 
      * en el atributo "taxes".
+     * @param product
      */
     public void calculatetaxes(Product product){
         if(product.getKind()){
@@ -103,6 +101,22 @@ public class Sells {
         }else {
             taxes += product.getPrice()*0.19;
         }
+    }
+    
+    /**
+     * Retorna el total de la venta antes de impuesto.
+     * @return 
+     */
+    public Double getTotalSell(){
+        return totalSell;
+    }
+    
+    public Double getSellAfterDiscount(){
+        return afterDiscount;
+    }
+    
+    public String getDiscount(){
+        return discount;
     }
     
     /**

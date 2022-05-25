@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class UvStore {
     //Attributes
     private String companyName;
-    private ArrayList<Supplier> suppliers;
+    protected ArrayList<Supplier> suppliers;
     private ArrayList<Product> products;
     protected LinkedList<Client> clients;
     protected MoneyRegister moneyRegister;
@@ -39,6 +39,7 @@ public class UvStore {
     
     /**
      * Añade un proveedor a la compañía
+     * @param newSupplier
      */
     public void setSupplier(Supplier newSupplier){
         suppliers.add(newSupplier);
@@ -49,11 +50,13 @@ public class UvStore {
      */
     public void createSupplier(){
         int nit = 0;
+        String name;
         ArrayList<Product> products = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         System.out.print("Supplier nit: ");
         nit = sc.nextInt();
-        Supplier supplierNew = new Supplier(nit,products);
+        name = sc.nextLine();
+        Supplier supplierNew = new Supplier(name, nit,products);
         supplierNew.createProduct();
     }
     
@@ -75,7 +78,6 @@ public class UvStore {
         name = sc.nextLine();
         Client client = new Client(name);
         clients.addFirst(client);
-        System.err.println("Añadido");
     }
     
     /**
@@ -87,7 +89,7 @@ public class UvStore {
         int client;
         Scanner sc = new Scanner(System.in);
         client = sc.nextInt();
-        clients.remove(client); //Probar
+        clients.remove(client);
     }
     
     /**
@@ -107,6 +109,7 @@ public class UvStore {
     
     /**
      * Asigna un cajero
+     * @param m1
      */
     public void setMoneyRegister(MoneyRegister m1){
         moneyRegister = m1;
@@ -153,7 +156,7 @@ public class UvStore {
     public void seeProducts(){
         int number = 0;
         for(Product product : products){
-            System.out.println("\n"+number+". "+product.getName());
+            System.out.println("\n"+number+". "+product.getName()+"\n");
             ++number;
         }
     }
@@ -169,23 +172,9 @@ public class UvStore {
         }
         return products.get(number);
     }
-    /*
-    public ArrayList<Supplier> getSuppliers() {
-        return suppliers;
-    }
-
-    public ArrayList<Product> getProducts() {
-        return products;
-    }
-
-    public ArrayList<Client> getClients() {
-        return clients;
-    }
-
-    public ArrayList<MoneyRegister> getMoneyRegister() {
-        return moneyRegister;
-    }
-    */
+    
+    
+    
     public void buyProducts(){
         //int opcion = 0;
         int number = 0;

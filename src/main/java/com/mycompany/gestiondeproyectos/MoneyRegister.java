@@ -19,6 +19,7 @@ public class MoneyRegister extends Person{
     protected LinkedList<Sells> sells;
     private Double taxes;
     private Double clientPayback;
+    private Double clientCash;
     
     //Builder
     public MoneyRegister(String name, Double defaultCash){
@@ -26,17 +27,23 @@ public class MoneyRegister extends Person{
         this.defaultCash = defaultCash;
         sells = new LinkedList<>();
         clientPayback = 0.0;
+        clientCash = 0.0;
     }
     
     //Methods
-    
+    /**
+     * Crea y añade una venta en el cajero.
+     * @param clientName
+     */
     public void addSell(String clientName){
-        System.err.println("Llegamos");
         Sells sell = new Sells(clientName, name);
-        System.err.println("Seguimos"); ///----------
         sells.addFirst(sell);
     }
     
+    /**
+     * Añade un producto a la ultima venta creada.
+     * @param product
+     */
     public void addProductToSell(Product product){
         sells.getFirst().addProduct(product);
     }
@@ -45,22 +52,25 @@ public class MoneyRegister extends Person{
      * Retorna true si el dinero en caja alcanza para dar devuelta y false 
      * si no es así.
      * @param clientCash Double
+     * @return Boolean
      */
     public Boolean isItEnough(Double clientCash){
-        if( sells.getFirst().calculateTotalSell() > clientCash ){
+        if( sells.getFirst().getTotalSell() > clientCash ){
+            System.out.println("This isn't enought");
             return false;
         }else {
+            this.clientCash += clientCash;
             defaultCash += clientCash;
-            clientPayback = clientCash - sells.getFirst().calculateTotalSell();
+            clientPayback = clientCash - sells.getFirst().getTotalSell();
             return true;
         }
     }
     
     /**
      * Retorna el total en devuelta.
-     * @param clientCash Double
+     * @return 
      */
-    public Double getPayback(Double clientCash){
+    public Double getPayback(){
         defaultCash -= clientPayback;
         return clientPayback;
     }

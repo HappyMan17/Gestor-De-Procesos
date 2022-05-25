@@ -32,8 +32,8 @@ public class GestionDeProyectos{
         ArrayList<Product> products2 = new ArrayList<>();
         
         //Creación de los proveedores
-        Supplier s1 = new Supplier(1, products);
-        Supplier s2 = new Supplier(2, products2);
+        Supplier s1 = new Supplier("Supplier 1", 1020204, products);
+        Supplier s2 = new Supplier("Supplier 2", 220505080, products2);
 
         //Creación del cajero
         MoneyRegister moneyRegister = new MoneyRegister("Camilo", 5000.0);        
@@ -44,19 +44,29 @@ public class GestionDeProyectos{
         store.setSupplier(s2);
         store.setMoneyRegister(moneyRegister);
         
+        //Bucle para comprar a otro p.
         store.buyProducts();
         Controlador controlador = new Controlador(store);
         
+        //Bucle con exit.
         byte opcion = 0;
         Scanner sc = new Scanner(System.in);
         System.out.println("Identify yourself");
-        System.out.println("1. Client.");
-        System.out.println("2. Admin.");
-        opcion = sc.nextByte();
-        if(opcion == 2){
-            controlador.start();
-        }else{
-            controlador.letsBuy();
-        }
+        do{
+            System.out.println("1. Client.");
+            System.out.println("2. Admin.");
+            System.out.println("3. record purchases and sales.");
+            System.out.println("4. endShift.");
+            System.out.println("5. Exit.");
+            opcion = sc.nextByte();
+            switch(opcion){
+                case 1: controlador.letsBuy();
+                    break;
+                case 2: controlador.start();
+                    break;
+                case 3: controlador.purchasesAndSells();
+                    break;
+            }
+        }while(opcion != 5);
     }
 }

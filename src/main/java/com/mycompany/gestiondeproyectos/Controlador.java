@@ -42,7 +42,6 @@ public class Controlador {
         }
         
         }while (opcion != 4);
-        System.out.println("Gracias!!!!");
     }
     
     public void productMenu(){
@@ -138,7 +137,56 @@ public class Controlador {
             keepGoing = sc.nextBoolean();
         }while(keepGoing);
         //Seleccionar metodo de pago / opcion = metodo de pago
-        System.out.println("Total: "+store.moneyRegister.sells.get(0).calculateDiscount(opcion));
+        paymentMethodMenu();
     }
     
+    public void paymentMethodMenu(){
+        int number;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choose the payment method: \n"
+            +"1. Cash\n"
+            +"2. Check\n"
+            +"3. Debit Card\n"
+            +"4. Credit Card\n"
+            +"5. Credit\n");
+        number = sc.nextInt();
+        store.moneyRegister.sells.get(0).calculateDiscount(number);
+        System.out.println("----------------------------------------\n"+
+            "Sale value: "
+            +store.moneyRegister.sells.get(0).getSellAfterDiscount()
+            +"\nTaxes value: "
+                +store.moneyRegister.sells.get(0).getTaxes()
+            +"\nDiscount: "
+            +store.moneyRegister.sells.get(0).getDiscount()
+            +"\nNet sale value: "
+            +store.moneyRegister.sells.get(0).getTotalSell()+"\n");
+        if(number == 1){
+            Double cash;
+            do{
+                System.out.println("How much do you have: ");
+                cash = sc.nextDouble();
+            }while(!store.moneyRegister.isItEnough(cash));
+        }
+        System.out.println(
+                "----------------------------------------\n"+
+                "Payback: "+store.moneyRegister.getPayback()
+                +"\n----------------------------------------");
+        System.out.println("Have a nice day!");
+    }
+    
+    public void purchasesAndSells(){
+        String clientSells = "\nSells:\n";
+        String supplierPurchases = "\nPurchases:\n";
+        Sells sellObject;
+        Supplier supObject;
+        System.out.println("\nCompany management of "+store.getName());
+        for( int number = 0; number < store.moneyRegister.sells.size(); 
+            ++number){
+            sellObject = store.moneyRegister.sells.get(number);
+            clientSells += sellObject.getClientName()+": "
+                +sellObject.getTotalSell()+
+                "\n-----------------------------";
+        }
+        System.out.println(clientSells);
+    }
 }
